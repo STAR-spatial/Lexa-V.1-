@@ -1,0 +1,679 @@
+#include <SoftwareSerial.h>
+SoftwareSerial BT(2,3); 
+#include "DFRobotDFPlayerMini.h"
+#include <Servo.h>
+
+
+DFRobotDFPlayerMini miMP3;
+SoftwareSerial miPuertoSerie(5, 4); 
+Servo servo_9;
+Servo servo_8;
+
+char Data;
+char voice ;
+String test="\0";
+void setup()
+{
+  digitalWrite(11, HIGH);
+  digitalWrite(6, HIGH);
+  miPuertoSerie.begin(9600);
+  miMP3.begin(miPuertoSerie);
+  miMP3.enableLoopAll();   
+  miMP3.volume(40);   
+  miMP3.play(1);   
+  
+  Serial.begin(9600);         
+  BT.begin(9600);             //Lancement du bluetooth
+  pinMode(13, OUTPUT);        //Led rouge
+  pinMode(12, OUTPUT);        //led verte
+  pinMode(11, OUTPUT);        //led bleu
+  pinMode(6,  OUTPUT);        //contrôle de l'allumage de la partie mobile
+  pinMode(7,  OUTPUT);        //contrôle de l'allumage de l'enceinte bluetooth de Lexa
+  pinMode(10, OUTPUT);        //led du compartiment
+  servo_8.attach(8);        
+  servo_9.attach(9);
+  servo_8.write(85);
+  servo_9.write(5);
+     
+}
+void loop()
+{
+ 
+  while(BT.available()>0)
+  { 
+    voice = BT.read();
+    delay(10);
+    test += voice;
+    Serial.print(test);
+    Serial.print("\n");  
+  }
+    if (test.length() > 0)
+    {
+      //Dance de Lexa
+       if (test == "Lexa danse"){
+      
+      test="\0"; 
+      miMP3.play(24);
+      miMP3.volume(100);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(10000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, HIGH);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(14000);
+      digitalWrite(13, HIGH);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(19000);
+      //changement de couleur
+      digitalWrite(13, HIGH);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, HIGH);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, HIGH);//bleu
+      delay(2000);
+      servo_8.write(5);
+      servo_9.write(85);
+      delay(2000);
+      servo_8.write(85);
+      servo_9.write(5);
+      delay(2000);
+      digitalWrite(13, HIGH);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, HIGH);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, HIGH);//bleu
+      delay(2000);
+      servo_8.write(5);
+      servo_9.write(85);
+      delay(2000);
+      servo_8.write(85);
+      servo_9.write(5);
+      delay(2000);
+      digitalWrite(13, HIGH);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, HIGH);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, HIGH);//bleu
+      delay(2000);
+      servo_8.write(5);
+      servo_9.write(85);
+      delay(2000);
+      servo_8.write(85);
+      servo_9.write(5);
+      delay(2000);
+      digitalWrite(13, HIGH);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, HIGH);//vert
+      digitalWrite(11, LOW);//bleu
+      delay(2000);
+      digitalWrite(13, LOW);//rouge
+      digitalWrite(12, LOW);//vert
+      digitalWrite(11, HIGH);//bleu
+      delay(2000);
+      servo_8.write(5);
+      servo_9.write(85);
+      delay(2000);
+      servo_8.write(85);
+      servo_9.write(5);
+      delay(2000);
+      }
+      //fin de la dance de Lexa
+      
+      //contrôle du volume de Lexa
+      if (test == "Lexa mets le volume à 10"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(10);
+      Serial.println("Lexa mets le volume à 10");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 20"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(20);
+      Serial.println("Lexa mets le volume à 20");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 30"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(30);
+      Serial.println("Lexa mets le volume à 30");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 40"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(40);
+      Serial.println("Lexa mets le volume à 40");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 50"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(50);
+      Serial.println("Lexa mets le volume à 50");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 60"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(60);
+      Serial.println("Lexa mets le volume à 60");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 70"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(70);
+      Serial.println("Lexa mets le volume à 70");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 80"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(80);
+      Serial.println("Lexa mets le volume à 80");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 90"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(90);
+      Serial.println("Lexa mets le volume à 90");
+      Serial.print("\n");
+      }
+      if (test == "Lexa mets le volume à 100"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      miMP3.volume(100);
+      Serial.println("Lexa mets le volume à 100");
+      Serial.print("\n");
+      }
+      //fin de la zone contrôle volume sonore
+
+      //redémarrage de la parti mobile
+      if (test == "Lexa sors du mode contrôle"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      Serial.println(" Lexa sors du mode contrôle");
+      Serial.print("\n");
+      digitalWrite(6, LOW);
+      delay(1000);
+      digitalWrite(6, HIGH);
+      }
+      if (test == "Lexa sors du mode automatique"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      Serial.println(" Lexa sors du mode automatique");
+      Serial.print("\n");
+      digitalWrite(6, LOW);
+      delay(1000);
+      digitalWrite(6, HIGH);
+      }
+      
+      if (test == "Lexa suis la ligne"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      Serial.println(" Lexa suis la ligne");
+      Serial.print("\n");
+      delay(30000);
+      digitalWrite(6, LOW);
+      delay(1000);
+      digitalWrite(6, HIGH);
+      }
+      if (test == "Lexa viens à mon chevet"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      Serial.println(" Lexa viens à mon chevet");
+      Serial.print("\n");
+      delay(60000);
+      digitalWrite(6, LOW);
+      delay(1000);
+      digitalWrite(6, HIGH);
+      }
+      //fin du redémarage de la partie mobile
+      
+      if (test == "Bonjour Alexa"){
+      
+      test="\0"; 
+      miMP3.play(3);
+      Serial.println(" Bonjour Alexa");
+      Serial.print("\n");
+      }
+
+      //bonjour Lexa
+      if (test == "Bonjour Lexa"){
+          
+      test="\0"; 
+      miMP3.play(2);
+      Serial.println(" Bonjour Lexa");
+      Serial.print("\n");
+      }
+      //fin "bonjour Lexa"
+
+      //ouverture du compartiment de Lexa
+      if (test == "Lexa ouvre ton compartiment"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      servo_9.write(90);
+      servo_8.write(0);
+      Serial.println("Lexa ouvre ton compartiment");
+      Serial.print("\n");
+      }
+      if (test == "Alexa ouvre ton compartiment"){ 
+        
+      test="\0"; 
+      miMP3.play(3);
+      servo_9.write(90);
+      servo_8.write(0);
+      Serial.println("Alexa ouvre ton compartiment");
+      Serial.print("\n");
+      }
+      //fin de l'ouverture du compartiment
+
+      //allumage du compartiment de Lexa
+      if (test == "Lexa allume ton compartiment"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(10, HIGH);
+      Serial.println("Lexa allume ton compartiment");
+      Serial.print("\n");
+      }
+      if (test == "Alexa allume ton compartiment"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(10, HIGH);
+      Serial.println("Alexa allume ton compartiment");
+      Serial.print("\n");
+      }
+      //fin de l'allumage de Lexa
+
+      //désactivation de l'allumage du compartiment de Lexa
+      if (test == "Lexa éteins ton compartiment"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(10, LOW);
+      Serial.println("Lexa éteins ton compartiment");
+      Serial.print("\n");
+      }
+      
+      if (test == "Alexa éteins ton compartiment"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(10, LOW);
+      Serial.println("Lexa éteins ton compartiment");
+      Serial.print("\n");
+      }
+      //fin de la désactivation de Lexa
+
+      
+      //activation de l'enceinte de Lexa
+      if (test == "Lexa active ton enceinte"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(7, HIGH); 
+      Serial.println("Lexa active ton enceinte");
+      Serial.print("\n");
+      }
+      if (test == "Alexa active ton enceinte"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(7, HIGH); 
+      Serial.println("Alexa active ton enceinte");
+      Serial.print("\n");
+      }
+      //fin de l'activation de l'enceinte de Lexa
+
+      //désactivation de l'enceinte de Lexa
+      if (test == "Lexa désactive ton enceinte"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(7, LOW); 
+      Serial.println("Lexa désactive ton enceinte");
+      Serial.print("\n");
+      }
+      if (test == "Alexa désactive ton enceinte"){
+     
+      test="\0"; 
+      miMP3.play(3);
+      digitalWrite(7, LOW); 
+      Serial.println("Alexa désactive ton enceinte");
+      Serial.print("\n");
+      }
+      //fin de la désactivation de l'enceinte de Lexa
+
+      //ouverture du compartiment
+      if (test == "Lexa je me suis fait mal"){
+        
+      digitalWrite(11, LOW);
+      digitalWrite(12, HIGH);
+      servo_9.write(90);
+      servo_8.write(0);   
+      test="\0"; 
+      miMP3.play(4);
+      Serial.println("Lexa je me suis fait mal");
+      Serial.print("\n");
+      }
+     
+      
+      if (test == "Alexa je me suis fait mal"){
+        
+      digitalWrite(11, LOW);
+      digitalWrite(12, HIGH);    
+      servo_9.write(90);
+      servo_8.write(0);
+      test="\0"; 
+      miMP3.play(4);
+      Serial.println("Alexa je me suis fait mal");
+      Serial.print("\n");
+      }
+      //fin de l'ouverture du compartiment
+
+      //début de la playlist "ACDC"
+      if (test == "Lexa mets du ACDC"){ 
+        
+      test="\0"; 
+      miMP3.play(5); 
+      delay(2000); 
+      miMP3.play(14);
+      delay(206000);
+      miMP3.play(15);
+      delay(247200);
+      miMP3.play(16);
+      Serial.println("Lexa mets du ACDC");
+      Serial.print("\n");
+      }
+     if (test == "Alexa mets du ACDC"){ 
+        
+      test="\0"; 
+      miMP3.play(5);
+      delay(2000);
+      miMP3.play(5);
+      delay(2000);
+      miMP3.play(14);
+      delay(206000);
+      miMP3.play(15);
+      delay(247200);
+      miMP3.play(16);
+      Serial.println("Alexa mets du ACDC");
+      Serial.print("\n");
+      }
+      //fin de la playlist "ACDC"
+      
+      //début de la playlist "réflection
+      if (test == "Lexa mets de la musique qui me fait réfléchir"){ 
+        
+      test="\0"; 
+      miMP3.play(5);
+      delay(2000);
+      miMP3.play(17);
+      delay(250200);
+      miMP3.play(22);
+      Serial.println("Lexa mets de la musique qui me fait réfléchir");
+      Serial.print("\n");
+      }
+      if (test == "Alexa mets de la musique qui me fait réfléchir"){ 
+        
+      test="\0"; 
+      miMP3.play(5);
+      delay(2000);
+      miMP3.play(17);
+      delay(250200);
+      miMP3.play(22);
+      Serial.println("Alexa mets de la musique qui me fait réfléchir");
+      Serial.print("\n");
+      }
+      //fin de la playlist "réflection"
+
+      //début de la playlist "musique relaxante"
+      if (test == "Lexa mets de la musique relaxante"){ 
+        
+      test="\0"; 
+      miMP3.play(6);
+      delay(2000);
+      miMP3.play(21);
+      Serial.println("Lexa mets de la musique relaxante");
+      Serial.print("\n");
+      }
+      if (test == "Alexa mets de la musique relaxante"){ 
+        
+      test="\0"; 
+      miMP3.play(6);
+      delay(2000);
+      miMP3.play(21);
+      Serial.println("Alexa mets de la musique relaxante");
+      Serial.print("\n");
+      }
+      //fin de la playlist "musique relaxante"
+      
+      //début de la playlist "musique spatiale"
+      if (test == "Lexa mets de la musique spatiale"){ 
+        
+      test="\0"; 
+      miMP3.volume(50);
+      miMP3.play(3);
+      delay(2000);
+      miMP3.play(18);
+      delay(78600);
+      miMP3.play(19);
+      delay(155400);
+      miMP3.play(20);
+      miMP3.volume(100);
+      Serial.println("Lexa mets de la musique spatiale");
+      Serial.print("\n");
+      }
+      
+      if (test == "Alexa mets de la musique spatiale"){ 
+        
+      test="\0"; 
+      miMP3.volume(50);
+      miMP3.play(3);
+      delay(2000);
+      miMP3.play(18);
+      delay(78600);
+      miMP3.play(19);
+      delay(155400);
+      miMP3.play(20);
+      miMP3.volume(100);
+      Serial.println("Alexa mets de la musique spatiale");
+      Serial.print("\n");
+      }
+      //fin de la playlist "musique spatiale"
+      
+      //début de la playlist "interstellaire"
+      if (test == "Lexa mets de la musique interstellar"){ 
+        
+      test="\0";    
+      miMP3.play(3);
+      delay(2000);
+      miMP3.play(23);
+      Serial.println("Lexa mets de la musique interstellar");
+      Serial.print("\n");
+      }
+          if (test == "Alexa mets de la musique interstellar"){ 
+        
+      test="\0";    
+      miMP3.play(3);
+      delay(2000);
+      miMP3.play(23);
+      Serial.println("Alexa mets de la musique interstellar");
+      Serial.print("\n");
+      }
+      //Fin de la playlist "musique interstellar"
+      
+     
+     if (test == "Lexa qui est ton Créateur"){ 
+          
+      test="\0"; 
+      miMP3.play(16);
+      Serial.println("Lexa qui est ton Créateur");
+      Serial.print("\n");
+      }
+     if (test == "Alexa qui est ton Créateur"){ 
+          
+      test="\0"; 
+      miMP3.play(11);
+      Serial.println("Alexa qui est ton Créateur");
+      Serial.print("\n");
+      }
+     if (test == "Lexa ferme ton compartiment"){
+        
+      test="\0";   
+      miMP3.play(3);  
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      servo_8.write(85);
+      servo_9.write(5);
+      Serial.println("Lexa ferme ton compartiment");
+      Serial.print("\n");
+       }
+     if (test == "Lexa"){
+        
+      test="\0";   
+      miMP3.play(3);  
+      digitalWrite(6, LOW);
+      delay(100);
+      digitalWrite(6, HIGH);
+      Serial.println("Lexa ferme ton compartiment");
+      Serial.print("\n");
+       }
+     if (test == "Alexa ferme ton compartiment"){
+        
+      test="\0";   
+      miMP3.play(3);  
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      servo_8.write(85);
+      servo_9.write(5); 
+      Serial.println("Alexa ferme ton compartiment");
+      Serial.print("\n");
+       }
+       //change de couleur
+
+    if (test == "Lexa change de couleur"){
+        
+      test="\0";   
+      miMP3.play(3);  
+      digitalWrite(12, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(13, HIGH);
+      delay(300); 
+      digitalWrite(12, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(13, HIGH);
+      delay(300); 
+      digitalWrite(12, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(13, HIGH);
+      delay(300); 
+      digitalWrite(12, HIGH);
+      digitalWrite(11, LOW);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(13, LOW);
+      delay(300);
+      digitalWrite(12, LOW);
+      digitalWrite(11, HIGH);
+      digitalWrite(13, LOW);
+      delay(300); 
+      Serial.println("Alexa ferme ton compartiment");
+      Serial.print("\n");
+       }
+      //change de couleur
+     if (test == "Lexa mode veille"){
+      while(! (test == "Lexa mode normal")){  
+      test="\0";     
+      digitalWrite(12, LOW);
+      digitalWrite(11, LOW);
+      digitalWrite(13, HIGH);
+      digitalWrite(6, LOW); 
+      Serial.println("Lexa mode veille");
+      Serial.print("\n");
+       } 
+     }
+     
+    
+      else { test="\0";}
+      }
+      else
+      {
+       test="\0"; 
+      } 
+}
